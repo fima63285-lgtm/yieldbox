@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>YieldBox — задания, бонусы и вознаграждения</title>
+
+    <meta name="description"
+          content="YieldBox — платформа с заданиями, бонусами и системой вознаграждений. Выполняйте задания, получайте бонусы и отслеживайте свой прогресс.">
+
+    <meta name="keywords"
+          content="YieldBox, задания, бонусы, вознаграждения, онлайн задания, заработок, rewards">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical"
+          href="https://fima63285-lgtm.github.io/yieldbox/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title"
+          content="YieldBox — задания и бонусы">
+    <meta property="og:description"
+          content="Выполняйте задания, получайте бонусы и отслеживайте свой прогресс в одном месте.">
+    <meta property="og:url"
+          content="https://fima63285-lgtm.github.io/yieldbox/">
+    <meta property="og:site_name" content="YieldBox">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title"
+          content="YieldBox — задания и бонусы">
+    <meta name="twitter:description"
+          content="Задания, бонусы и вознаграждения на одной платформе.">
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#080b12">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "YieldBox",
+        "url": "https://fima63285-lgtm.github.io/yieldbox/",
+        "description": "Платформа с заданиями, бонусами и вознаграждениями."
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg: #080b12;
+            --bg-secondary: #0d111a;
+            --card: #111722;
+            --card-hover: #151d2b;
+            --border: rgba(255,255,255,0.08);
+
+            --text: #f5f7fb;
+            --muted: #8d98aa;
+
+            --accent: #6d7cff;
+            --accent-2: #8d63ff;
+
+            --success: #39d98a;
+            --warning: #ffbd59;
+            --danger: #ff647c;
+
+            --radius: 18px;
+            --max-width: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 20% 0%,
+                    rgba(109,124,255,0.13),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(141,99,255,0.10),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(100% - 32px, var(--max-width));
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            background: rgba(8,11,18,0.78);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            min-height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+
+            box-shadow:
+                0 8px 30px rgba(109,124,255,0.25);
+
+            font-weight: 900;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        nav a {
+            color: var(--muted);
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* BUTTONS */
+
+        .btn {
+            border: 0;
+            cursor: pointer;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 44px;
+            padding: 0 18px;
+
+            border-radius: 12px;
+
+            font-weight: 700;
+            font-size: 14px;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+
+            box-shadow:
+                0 10px 30px rgba(109,124,255,0.18);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 100px 0 80px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 12px;
+            margin-bottom: 22px;
+
+            border-radius: 999px;
+
+            color: #b9c1ff;
+            background: rgba(109,124,255,0.10);
+            border: 1px solid rgba(109,124,255,0.20);
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+            background: var(--success);
+
+            box-shadow:
+                0 0 12px rgba(57,217,138,0.7);
+        }
+
+        .hero h1 {
+            max-width: 760px;
+
+            font-size:
+                clamp(42px, 7vw, 76px);
+
+            line-height: 0.98;
+            letter-spacing: -3px;
+
+            margin-bottom: 24px;
+        }
+
+        .gradient-text {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 20%,
+                    #8995ff 70%,
+                    #a36cff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            color: var(--muted);
+
+            font-size: 18px;
+            line-height: 1.7;
+
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-note {
+            margin-top: 18px;
+
+            color: #697486;
+            font-size: 12px;
+        }
+
+        /* DASHBOARD CARD */
+
+        .dashboard-card {
+            position: relative;
+
+            padding: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.07),
+                    rgba(255,255,255,0.025)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.35);
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 26px;
+        }
+
+        .dashboard-title {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .balance {
+            margin-bottom: 26px;
+        }
+
+        .balance-label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .balance-value {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        .balance-value span {
+            color: var(--muted);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .progress {
+            height: 8px;
+
+            background: rgba(255,255,255,0.06);
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin: 14px 0 8px;
+        }
+
+        .progress-fill {
+            width: 68%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+
+            border-radius: inherit;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+
+            margin-top: 22px;
+        }
+
+        .mini-stat {
+            padding: 15px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border-radius: 14px;
+        }
+
+        .mini-stat strong {
+            display: block;
+            font-size: 20px;
+        }
+
+        .mini-stat span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* SECTION */
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-heading {
+            max-width: 680px;
+            margin-bottom: 38px;
+        }
+
+        .section-heading h2 {
+            font-size:
+                clamp(30px, 5vw, 46px);
+
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+
+            margin-bottom: 14px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        /* TASKS */
+
+        .tasks-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .task-card {
+            padding: 22px;
+
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            background: var(--card-hover);
+            border-color: rgba(109,124,255,0.25);
+        }
+
+        .task-icon {
+            width: 44px;
+            height: 44px;
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 18px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(109,124,255,0.10);
+
+            font-size: 20px;
+        }
+
+        .task-card h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .task-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+
+            min-height: 62px;
+
+            margin-bottom: 20px;
+        }
+
+        .task-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .reward {
+            color: var(--success);
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .task-button {
+            min-height: 38px;
+            padding: 0 13px;
+
+            color: white;
+
+            background:
+                rgba(109,124,255,0.15);
+
+            border:
+                1px solid rgba(109,124,255,0.25);
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .task-button:hover {
+            background:
+                rgba(109,124,255,0.25);
+        }
+
+        .task-button.completed {
+            color: var(--success);
+            background:
+                rgba(57,217,138,0.08);
+
+            border-color:
+                rgba(57,217,138,0.18);
+
+            cursor: default;
+        }
+
+        /* HOW */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .step {
+            position: relative;
+
+            padding: 26px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .step-number {
+            display: inline-grid;
+            place-items: center;
+
+            width: 36px;
+            height: 36px;
+
+            margin-bottom: 20px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .step h3 {
+            margin-bottom: 9px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* AD */
+
+        .ad-box {
+            min-height: 150px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            border:
+                1px dashed rgba(255,255,255,0.15);
+
+            border-radius: var(--radius);
+
+            background:
+                rgba(255,255,255,0.02);
+
+            text-align: center;
+        }
+
+        .ad-content span {
+            display: block;
+
+            color: #687285;
+            font-size: 11px;
+
+            margin-bottom: 8px;
+
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .ad-content strong {
+            font-size: 16px;
+        }
+
+        .ad-content p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* TELEGRAM */
+
+        .telegram {
+            position: relative;
+            overflow: hidden;
+
+            padding: 42px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(109,124,255,0.17),
+                    rgba(141,99,255,0.09)
+                );
+
+            border:
+                1px solid rgba(109,124,255,0.22);
+        }
+
+        .telegram h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .telegram p {
+            max-width: 650px;
+
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        /* FAQ */
+
+        .faq {
+            display: grid;
+            gap: 10px;
+        }
+
+        details {
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 0 20px;
+        }
+
+        summary {
+            cursor: pointer;
+
+            list-style: none;
+
+            padding: 20px 0;
+
+            font-weight: 700;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details p {
+            color: var(--muted);
+
+            padding:
+                0 0 20px;
+
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* NOTICE */
+
+        .notice {
+            padding: 18px;
+
+            border:
+                1px solid rgba(255,189,89,0.15);
+
+            background:
+                rgba(255,189,89,0.05);
+
+            border-radius: 14px;
+
+            color: #b9a986;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding:
+                45px 0
+                calc(45px + env(safe-area-inset-bottom));
+
+            border-top:
+                1px solid var(--border);
+
+            color: var(--muted);
+        }
+
+        .footer-grid {
+            display: grid;
+
+            grid-template-columns:
+                1.4fr
+                1fr
+                1fr;
+
+            gap: 40px;
+        }
+
+        .footer-brand {
+            color: var(--text);
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .footer-description {
+            max-width: 350px;
+
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            color: var(--text);
+
+            font-size: 13px;
+
+            margin-bottom: 13px;
+        }
+
+        .footer-column a {
+            display: block;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+
+            transition: 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--text);
+        }
+
+        .copyright {
+            margin-top: 35px;
+            padding-top: 20px;
+
+            border-top:
+                1px solid var(--border);
+
+            font-size: 12px;
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+
+            left: 50%;
+            bottom: 25px;
+
+            transform:
+                translate(-50%, 120px);
+
+            z-index: 200;
+
+            max-width:
+                calc(100% - 30px);
+
+            padding:
+                13px 17px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(17,23,34,0.96);
+
+            backdrop-filter: blur(15px);
+
+            border-radius: 12px;
+
+            color: var(--text);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.35);
+
+            transition:
+                transform 0.25s ease;
+        }
+
+        .toast.show {
+            transform:
+                translate(-50%, 0);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            nav {
+                display: none;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .tasks-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+
+            .container {
+                width:
+                    min(
+                        100% - 22px,
+                        var(--max-width)
+                    );
+            }
+
+            .header-inner {
+                min-height: 64px;
+            }
+
+            .header-actions .btn-secondary {
+                display: none;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo-mark {
+                width: 34px;
+                height: 34px;
+            }
+
+            .hero {
+                padding:
+                    65px 0 55px;
+            }
+
+            .hero h1 {
+                font-size: 46px;
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .dashboard-card {
+                padding: 20px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .tasks-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .telegram {
+                padding: 28px 22px;
+            }
+
+            .telegram h2 {
+                font-size: 27px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .balance-value {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container header-inner">
+
+        <a href="#top" class="logo" aria-label="YieldBox">
+            <div class="logo-mark">Y</div>
+            <span>YieldBox</span>
+        </a>
+
+        <nav>
+            <a href="#tasks">Задания</a>
+            <a href="#how">Как работает</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="header-actions">
+            <a
+                class="btn btn-secondary"
+                href="#tasks">
+                Задания
+            </a>
+
+            <a
+                class="btn btn-primary"
+                href="#telegram">
+                Telegram
+            </a>
+        </div>
+
+    </div>
+</header>
+
+
+<main id="top">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="container hero-grid">
+
+            <div>
+
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    Платформа развивается
+                </div>
+
+                <h1>
+                    Выполняй.
+                    <span class="gradient-text">
+                        Получай бонусы.
+                    </span>
+                </h1>
+
+                <p class="hero-description">
+                    YieldBox объединяет задания, бонусы и систему
+                    вознаграждений в одном удобном пространстве.
+                    Следи за прогрессом и управляй своими результатами.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="#tasks"
+                        class="btn btn-primary">
+                        Смотреть задания
+                    </a>
+
+                    <a
+                        href="#how"
+                        class="btn btn-secondary">
+                        Как это работает
+                    </a>
+
+                </div>
+
+                <p class="hero-note">
+                    Без необходимости передавать нам приватные ключи
+                    или данные от ваших кошельков.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-top">
+
+                    <div class="dashboard-title">
+                        Ваш прогресс
+                    </div>
+
+                    <div class="status">
+                        <span class="badge-dot"></span>
+                        Активен
+                    </div>
+
+                </div>
+
+
+                <div class="balance">
+
+                    <div class="balance-label">
+                        Демо-баланс
+                    </div>
+
+                    <div
+                        class="balance-value"
+                        id="balance">
+                        0
+                        <span>BX</span>
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            class="progress-fill"
+                            id="progress">
+                        </div>
+                    </div>
+
+                    <div class="progress-text">
+                        <span>Прогресс</span>
+                        <span id="progressText">
+                            0%
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="mini-stats">
+
+                    <div class="mini-stat">
+                        <strong id="completedCount">
+                            0
+                        </strong>
+                        <span>
+                            Выполнено
+                        </span>
+                    </div>
+
+                    <div class="mini-stat">
+                        <strong>
+                            5
+                        </strong>
+                        <span>
+                            Доступно
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TASKS -->
+
+    <section id="tasks">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <h2>
+                    Доступные задания
+                </h2>
+
+                <p>
+                    Выбирай доступные задания и получай бонусы
+                    за выполнение условий.
+                </p>
+
+            </div>
+
+
+            <div class="tasks-grid">
+
+                <article
+                    class="task-card"
+                    data-task="telegram"
+                    data-reward="50">
+
+                    <div class="task-icon">
+                        T
+                    </div>
+
+                    <h3>
+                        Подписка на Telegram
+                    </h3>
+
+                    <p>
+                        Перейдите в официальный Telegram-канал
+                        YieldBox и подпишитесь.
+                    </p>
+
+                    <div class="task-bottom">
+
+                        <span class="reward">
+                            +50 BX
+                        </span>
+
+                        <button
+                            class="task-button"
+                            onclick="completeTask('telegram', 50, this)">
+                            Выполнить
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="task-card"
+                    data-task="visit"
+                    data-reward="30">
+
+                    <div class="task-icon">
+                        W
+                    </div>
+
+                    <h3>
+                        Посетить страницу
+                    </h3>
+
+                    <p>
+                        Ознакомьтесь с возможностями
+                        платформы YieldBox.
+                    </p>
+
+                    <div class="task-bottom">
+
+                        <span class="reward">
+                            +30 BX
+                        </span>
+
+                        <button
+                            class="task-button"
+                            onclick="completeTask('visit', 30, this)">
+                            Выполнить
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="task-card"
+                    data-task="share"
+                    data-reward="75">
+
+                    <div class="task-icon">
+                        S
+                    </div>
+
+                    <h3>
+                        Поделиться
+                    </h3>
+
+                    <p>
+                        Поделитесь информацией о платформе
+                        с друзьями или в социальной сети.
+                    </p>
+
+                    <div class="task-bottom">
+
+                        <span class="reward">
+                            +75 BX
+                        </span>
+
+                        <button
+                            class="task-button"
+                            onclick="completeTask('share', 75, this)">
+                            Выполнить
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="task-card"
+                    data-task="profile"
+                    data-reward="100">
+
+                    <div class="task-icon">
+                        P
+                    </div>
+
+                    <h3>
+                        Заполнить профиль
+                    </h3>
+
+                    <p>
+                        Заполните основные данные профиля
+                        после появления регистрации.
+                    </p>
+
+                    <div class="task-bottom">
+
+                        <span class="reward">
+                            +100 BX
+                        </span>
+
+                        <button
+                            class="task-button"
+                            onclick="completeTask('profile', 100, this)">
+                            Выполнить
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="task-card"
+                    data-task="daily"
+                    data-reward="25">
+
+                    <div class="task-icon">
+                        D
+                    </div>
+
+                    <h3>
+                        Ежедневный бонус
+                    </h3>
+
+                    <p>
+                        Проверяйте платформу каждый день,
+                        чтобы получать доступные бонусы.
+                    </p>
+
+                    <div class="task-bottom">
+
+                        <span class="reward">
+                            +25 BX
+                        </span>
+
+                        <button
+                            class="task-button"
+                            onclick="completeTask('daily', 25, this)">
+                            Получить
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article class="task-card">
+
+                    <div class="task-icon">
+                        +
+                    </div>
+
+                    <h3>
+                        Новые задания
+                    </h3>
+
+                    <p>
+                        В будущем список заданий будет
+                        обновляться через систему управления.
+                    </p>
+
+                    <div class="task-bottom">
+
+                        <span class="reward">
+                            Скоро
+                        </span>
+
+                        <button
+                            class="task-button"
+                            onclick="showToast('Новые задания появятся после подключения системы заданий.')">
+                            Подробнее
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW -->
+
+    <section id="how">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <h2>
+                    Как работает YieldBox
+                </h2>
+
+                <p>
+                    Простая модель взаимодействия без лишних действий.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Выбираете задание
+                    </h3>
+
+                    <p>
+                        На платформе отображаются доступные
+                        задания и условия их выполнения.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Выполняете условие
+                    </h3>
+
+                    <p>
+                        После выполнения задания система
+                        должна проверить его результат.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Получаете бонус
+                    </h3>
+
+                    <p>
+                        После подтверждения результат
+                        отображается в вашем аккаунте.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADVERTISEMENT -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="ad-box">
+
+                <div class="ad-content">
+
+                    <span>
+                        Реклама
+                    </span>
+
+                    <strong>
+                        Рекламное место YieldBox
+                    </strong>
+
+                    <p>
+                        Здесь позже можно подключить
+                        рекламную сеть или собственные рекламные размещения.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TELEGRAM -->
+
+    <section id="telegram">
+
+        <div class="container">
+
+            <div class="telegram">
+
+                <h2>
+                    Следи за обновлениями
+                </h2>
+
+                <p>
+                    Новости платформы, новые задания,
+                    обновления и важная информация будут
+                    публиковаться в Telegram.
+                </p>
+
+                <!--
+                    ВАЖНО:
+                    Замени ссылку ниже на настоящий Telegram.
+                -->
+
+                <a
+                    href="https://t.me/your_channel"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-primary">
+                    Открыть Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section id="faq">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <h2>
+                    Частые вопросы
+                </h2>
+
+                <p>
+                    Основная информация о платформе.
+                </p>
+
+            </div>
+
+
+            <div class="faq">
+
+                <details>
+
+                    <summary>
+                        Что такое YieldBox?
+                    </summary>
+
+                    <p>
+                        YieldBox — проект, ориентированный на задания,
+                        бонусы и систему вознаграждений.
+                    </p>
+
+                </details>
+
+
+                <details>
+
+                    <summary>
+                        Нужно ли пополнять баланс?
+                    </summary>
+
+                    <p>
+                        Для доступа к демонстрационным заданиям
+                        пополнение не требуется. Реальные финансовые
+                        операции будут подключаться отдельно и
+                        прозрачно после внедрения серверной части.
+                    </p>
+
+                </details>
+
+
+                <details>
+
+                    <summary>
+                        Когда появятся аккаунты?
+                    </summary>
+
+                    <p>
+                        Регистрация и авторизация будут подключены
+                        на следующем этапе через серверную часть.
+                    </p>
+
+                </details>
+
+
+                <details>
+
+                    <summary>
+                        Как будут работать выплаты?
+                    </summary>
+
+                    <p>
+                        Для реальных выплат потребуется серверная
+                        система, база данных и проверенный платёжный
+                        механизм. Статическая версия сайта не выполняет
+                        реальные переводы.
+                    </p>
+
+                </details>
+
+
+                <details>
+
+                    <summary>
+                        Безопасно ли передавать приватный ключ?
+                    </summary>
+
+                    <p>
+                        Приватные ключи и seed-фразы никогда не должны
+                        передаваться сайту или администраторам.
+                    </p>
+
+                </details>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NOTICE -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="notice">
+                Текущая версия YieldBox является frontend-прототипом.
+                Баланс и выполнение заданий в этой версии работают
+                локально в браузере и не являются реальными денежными
+                операциями. Для настоящих пользователей, базы данных,
+                проверки заданий и выплат потребуется серверная система.
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <div class="footer-brand">
+                    YieldBox
+                </div>
+
+                <p class="footer-description">
+                    Платформа для заданий, бонусов
+                    и цифровых вознаграждений.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Навигация
+                </h4>
+
+                <a href="#tasks">
+                    Задания
+                </a>
+
+                <a href="#how">
+                    Как работает
+                </a>
+
+                <a href="#faq">
+                    FAQ
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Информация
+                </h4>
+
+                <a href="#">
+                    Политика конфиденциальности
+                </a>
+
+                <a href="#">
+                    Условия использования
+                </a>
+
+                <a href="#telegram">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+            © <span id="year"></span> YieldBox. Все права защищены.
+        </div>
+
+    </div>
+
+</footer>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script>
+    /*
+     * ==========================================
+     * YIELDBOX FRONTEND DEMO
+     * ==========================================
+     *
+     * ВАЖНО:
+     * Этот код НЕ является системой реальных выплат.
+     * Данные сохраняются только в localStorage браузера.
+     *
+     * Реальный баланс, аккаунты, задания и выплаты
+     * подключим через backend на следующем этапе.
+     */
+
+
+    const STORAGE_KEY = "yieldbox_demo_data";
+
+
+    let data = {
+        balance: 0,
+        completed: []
+    };
+
+
+    function loadData() {
+
+        try {
+
+            const saved =
+                localStorage.getItem(STORAGE_KEY);
+
+            if (saved) {
+
+                const parsed =
+                    JSON.parse(saved);
+
+                if (
+                    typeof parsed.balance === "number" &&
+                    Array.isArray(parsed.completed)
+                ) {
+
+                    data = parsed;
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "YieldBox storage error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    function saveData() {
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(data)
+            );
+
+        } catch (error) {
+
+            console.error(
+                "YieldBox save error:",
+                error
+            );
+
+        }
+    }
+
+
+    function updateDashboard() {
+
+        const balance =
+            document.getElementById("balance");
+
+        const completedCount =
+            document.getElementById("completedCount");
+
+        const progress =
+            document.getElementById("progress");
+
+        const progressText =
+            document.getElementById("progressText");
+
+
+        if (balance) {
+
+            balance.innerHTML =
+                `${data.balance} <span>BX</span>`;
+
+        }
+
+
+        if (completedCount) {
+
+            completedCount.textContent =
+                data.completed.length;
+
+        }
+
+
+        const totalTasks = 5;
+
+        const percentage =
+            Math.min(
+                100,
+                Math.round(
+                    (data.completed.length / totalTasks) * 100
+                )
+            );
+
+
+        if (progress) {
+
+            progress.style.width =
+                `${percentage}%`;
+
+        }
+
+
+        if (progressText) {
+
+            progressText.textContent =
+                `${percentage}%`;
+
+        }
+
+
+        updateTaskButtons();
+
+    }
+
+
+    function updateTaskButtons() {
+
+        document
+            .querySelectorAll("[data-task]")
+            .forEach(card => {
+
+                const id =
+                    card.dataset.task;
+
+                const button =
+                    card.querySelector(".task-button");
+
+                if (!button) {
+                    return;
+                }
+
+
+                if (
+                    data.completed.includes(id)
+                ) {
+
+                    button.textContent =
+                        "Выполнено";
+
+                    button.classList.add(
+                        "completed"
+                    );
+
+                    button.disabled = true;
+
+                }
+
+            });
+
+    }
+
+
+    function completeTask(
+        taskId,
+        reward,
+        button
+    ) {
+
+        if (
+            data.completed.includes(taskId)
+        ) {
+
+            showToast(
+                "Это задание уже выполнено."
+            );
+
+            return;
+
+        }
+
+
+        data.completed.push(taskId);
+
+        data.balance += reward;
+
+        saveData();
+
+        updateDashboard();
+
+
+        if (button) {
+
+            button.textContent =
+                "Выполнено";
+
+            button.classList.add(
+                "completed"
+            );
+
+            button.disabled = true;
+
+        }
+
+
+        showToast(
+            `Демо-бонус +${reward} BX добавлен.`
+        );
+
+    }
+
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        if (!toast) {
+            return;
+        }
+
+
+        toast.textContent =
+            message;
+
+        toast.classList.add("show");
+
+
+        clearTimeout(
+            window.yieldBoxToastTimer
+        );
+
+
+        window.yieldBoxToastTimer =
+            setTimeout(() => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            }, 3000);
+
+    }
+
+
+    document
+        .getElementById("year")
+        .textContent =
+        new Date().getFullYear();
+
+
+    loadData();
+
+    updateDashboard();
+
+</script>
+
+</body>
+</html>
