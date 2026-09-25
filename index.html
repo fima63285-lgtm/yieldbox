@@ -1803,9 +1803,9 @@
 
 
     let data = {
-        balance: 0,
-        completed: []
-    };
+    balance: 0,
+    completed: []
+};
 
 
     function loadData() {
@@ -1962,56 +1962,40 @@
 
     }
 
-
-    function completeTask(
-        taskId,
-        reward,
-        button
-    ) {
-
-        if (
-            data.completed.includes(taskId)
-        ) {
-
-            showToast(
-                "Это задание уже выполнено."
-            );
-
-            return;
-
-        }
-
-
-        data.completed.push(taskId);
-
-        data.balance += reward;
-
-        saveData();
-
-        updateDashboard();
-
-
-        if (button) {
-
-            button.textContent =
-                "Выполнено";
-
-            button.classList.add(
-                "completed"
-            );
-
-            button.disabled = true;
-
-        }
-
-
-        showToast(
-            `Демо-бонус +${reward} BX добавлен.`
-        );
-
+async function completeTask(taskId, reward, button) {
+    if (!supabaseClient) {
+        showToast("Ошибка подключения к серверу.");
+        return;
     }
 
+    const { data: { user } } =
+        await supabaseClient.auth.getUser();
 
+    if (!user) {
+        showToast("Сначала войдите в аккаунт.");
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .rpc("complete_task", {
+            p_task_id: taskId
+        });
+
+    if (error) {
+        console.error(error);
+        showToast("Не удалось выполнить задание.");
+        return;
+    }
+
+    if (button) {
+        button.textContent = "Выполнено";
+        button.classList.add("completed");
+        button.disabled = true;
+    }
+
+    showToast(`Бонус +${reward} BX начислен.`);
+}
+    
     function showToast(message) {
 
         const toast =
