@@ -1,1782 +1,2092 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>YieldBox — задания, бонусы и вознаграждения</title>
 
-    <title>YieldBox — задания, бонусы и вознаграждения</title>
+<meta name="description" content="YieldBox — платформа с заданиями, бонусами и системой вознаграждений.">
+<meta name="theme-color" content="#080b12">
 
-    <meta name="description"
-          content="YieldBox — платформа с заданиями, бонусами и системой вознаграждений. Выполняйте задания, получайте бонусы и отслеживайте свой прогресс.">
+<link rel="canonical" href="https://fima63285-lgtm.github.io/yieldbox/">
 
-    <meta name="keywords"
-          content="YieldBox, задания, бонусы, вознаграждения, онлайн задания, заработок, rewards">
+<style>
+:root {
+    --bg: #080b12;
+    --bg-secondary: #0d111a;
+    --card: #111722;
+    --card-hover: #151d2b;
+    --border: rgba(255,255,255,0.08);
 
-    <meta name="robots" content="index, follow">
+    --text: #f5f7fb;
+    --muted: #8d98aa;
 
-    <link rel="canonical"
-          href="https://fima63285-lgtm.github.io/yieldbox/">
+    --accent: #6d7cff;
+    --accent-2: #8d63ff;
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title"
-          content="YieldBox — задания и бонусы">
-    <meta property="og:description"
-          content="Выполняйте задания, получайте бонусы и отслеживайте свой прогресс в одном месте.">
-    <meta property="og:url"
-          content="https://fima63285-lgtm.github.io/yieldbox/">
-    <meta property="og:site_name" content="YieldBox">
+    --success: #39d98a;
+    --warning: #ffbd59;
+    --danger: #ff647c;
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title"
-          content="YieldBox — задания и бонусы">
-    <meta name="twitter:description"
-          content="Задания, бонусы и вознаграждения на одной платформе.">
+    --radius: 18px;
+    --max-width: 1180px;
+}
 
-    <!-- Theme -->
-    <meta name="theme-color" content="#080b12">
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "YieldBox",
-        "url": "https://fima63285-lgtm.github.io/yieldbox/",
-        "description": "Платформа с заданиями, бонусами и вознаграждениями."
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            rgba(109,124,255,0.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(141,99,255,0.10),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.container {
+    width: min(100% - 32px, var(--max-width));
+    margin: 0 auto;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    background: rgba(8,11,18,0.78);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.logo-mark {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent-2)
+        );
+
+    box-shadow:
+        0 8px 30px rgba(109,124,255,0.25);
+
+    font-weight: 900;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+nav a {
+    color: var(--muted);
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+nav a:hover {
+    color: var(--text);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+/* BUTTONS */
+
+.btn {
+    border: 0;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+    padding: 0 18px;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent-2)
+        );
+
+    box-shadow:
+        0 10px 30px rgba(109,124,255,0.18);
+}
+
+.btn-secondary {
+    color: var(--text);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+}
+
+.btn-danger {
+    color: #ff91a3;
+    background: rgba(255,100,124,0.10);
+    border: 1px solid rgba(255,100,124,0.20);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* USER */
+
+.user-chip {
+    display: none;
+    align-items: center;
+
+    max-width: 180px;
+
+    padding: 8px 11px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    overflow: hidden;
+}
+
+.user-chip span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* HERO */
+
+.hero {
+    padding: 100px 0 80px;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 12px;
+    margin-bottom: 22px;
+
+    border-radius: 999px;
+
+    color: #b9c1ff;
+    background: rgba(109,124,255,0.10);
+    border: 1px solid rgba(109,124,255,0.20);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    background: var(--success);
+
+    box-shadow:
+        0 0 12px rgba(57,217,138,0.7);
+}
+
+.hero h1 {
+    max-width: 760px;
+
+    font-size:
+        clamp(42px, 7vw, 76px);
+
+    line-height: 0.98;
+    letter-spacing: -3px;
+
+    margin-bottom: 24px;
+}
+
+.gradient-text {
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 20%,
+            #8995ff 70%,
+            #a36cff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero-description {
+    max-width: 650px;
+
+    color: var(--muted);
+
+    font-size: 18px;
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hero-note {
+    margin-top: 18px;
+
+    color: #697486;
+    font-size: 12px;
+}
+
+/* DASHBOARD */
+
+.dashboard-card {
+    position: relative;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.07),
+            rgba(255,255,255,0.025)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.10);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.35);
+}
+
+.dashboard-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 26px;
+}
+
+.dashboard-title {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: var(--success);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.balance {
+    margin-bottom: 26px;
+}
+
+.balance-label {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.balance-value {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.balance-value span {
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.progress {
+    height: 8px;
+
+    background: rgba(255,255,255,0.06);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin: 14px 0 8px;
+}
+
+.progress-fill {
+    width: 0;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--accent),
+            var(--accent-2)
+        );
+
+    border-radius: inherit;
+
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.mini-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.mini-stat {
+    padding: 15px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        rgba(255,255,255,0.025);
+
+    border-radius: 14px;
+}
+
+.mini-stat strong {
+    display: block;
+    font-size: 20px;
+}
+
+.mini-stat span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* SECTION */
+
+section {
+    padding: 80px 0;
+}
+
+.section-heading {
+    max-width: 680px;
+    margin-bottom: 38px;
+}
+
+.section-heading h2 {
+    font-size:
+        clamp(30px, 5vw, 46px);
+
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+
+    margin-bottom: 14px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 16px;
+}
+
+/* TASKS */
+
+.tasks-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+.task-card {
+    padding: 22px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+    background: var(--card-hover);
+    border-color: rgba(109,124,255,0.25);
+}
+
+.task-icon {
+    width: 44px;
+    height: 44px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 18px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(109,124,255,0.10);
+
+    font-size: 20px;
+}
+
+.task-card h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+.task-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+
+    min-height: 62px;
+
+    margin-bottom: 20px;
+}
+
+.task-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.reward {
+    color: var(--success);
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.task-button {
+    min-height: 38px;
+    padding: 0 13px;
+
+    color: white;
+
+    background:
+        rgba(109,124,255,0.15);
+
+    border:
+        1px solid rgba(109,124,255,0.25);
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+.task-button:hover {
+    background:
+        rgba(109,124,255,0.25);
+}
+
+.task-button.completed {
+    color: var(--success);
+
+    background:
+        rgba(57,217,138,0.08);
+
+    border-color:
+        rgba(57,217,138,0.18);
+
+    cursor: default;
+}
+
+.task-button:disabled {
+    opacity: 0.75;
+}
+
+/* HOW */
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.step {
+    position: relative;
+
+    padding: 26px;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.step-number {
+    display: inline-grid;
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent-2)
+        );
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.step h3 {
+    margin-bottom: 9px;
+}
+
+.step p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* WALLET */
+
+.wallet-box,
+.account-box {
+    padding: 24px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+}
+
+.wallet-row {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.wallet-row:last-child {
+    border-bottom: 0;
+}
+
+.wallet-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.wallet-value {
+    font-weight: 700;
+    text-align: right;
+    word-break: break-all;
+}
+
+.transactions {
+    display: grid;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.02);
+
+    font-size: 13px;
+}
+
+.tx-plus {
+    color: var(--success);
+    font-weight: 800;
+}
+
+.tx-muted {
+    color: var(--muted);
+}
+
+/* AD */
+
+.ad-box {
+    min-height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    border:
+        1px dashed rgba(255,255,255,0.15);
+
+    border-radius: var(--radius);
+
+    background:
+        rgba(255,255,255,0.02);
+
+    text-align: center;
+}
+
+.ad-content span {
+    display: block;
+
+    color: #687285;
+    font-size: 11px;
+
+    margin-bottom: 8px;
+
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.ad-content strong {
+    font-size: 16px;
+}
+
+.ad-content p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* TELEGRAM */
+
+.telegram {
+    position: relative;
+    overflow: hidden;
+
+    padding: 42px;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(109,124,255,0.17),
+            rgba(141,99,255,0.09)
+        );
+
+    border:
+        1px solid rgba(109,124,255,0.22);
+}
+
+.telegram h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.telegram p {
+    max-width: 650px;
+
+    color: var(--muted);
+    margin-bottom: 24px;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* FAQ */
+
+.faq {
+    display: grid;
+    gap: 10px;
+}
+
+details {
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 0 20px;
+}
+
+summary {
+    cursor: pointer;
+
+    list-style: none;
+
+    padding: 20px 0;
+
+    font-weight: 700;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+details p {
+    color: var(--muted);
+
+    padding:
+        0 0 20px;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* NOTICE */
+
+.notice {
+    padding: 18px;
+
+    border:
+        1px solid rgba(255,189,89,0.15);
+
+    background:
+        rgba(255,189,89,0.05);
+
+    border-radius: 14px;
+
+    color: #b9a986;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+/* FOOTER */
+
+footer {
+    padding:
+        45px 0
+        calc(45px + env(safe-area-inset-bottom));
+
+    border-top:
+        1px solid var(--border);
+
+    color: var(--muted);
+}
+
+.footer-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.4fr
+        1fr
+        1fr;
+
+    gap: 40px;
+}
+
+.footer-brand {
+    color: var(--text);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.footer-description {
+    max-width: 350px;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.footer-column h4 {
+    color: var(--text);
+
+    font-size: 13px;
+
+    margin-bottom: 13px;
+}
+
+.footer-column a {
+    display: block;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+
+    transition: 0.2s;
+}
+
+.footer-column a:hover {
+    color: var(--text);
+}
+
+.copyright {
+    margin-top: 35px;
+    padding-top: 20px;
+
+    border-top:
+        1px solid var(--border);
+
+    font-size: 12px;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 25px;
+
+    transform:
+        translate(-50%, 120px);
+
+    z-index: 300;
+
+    max-width:
+        calc(100% - 30px);
+
+    padding:
+        13px 17px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        rgba(17,23,34,0.96);
+
+    backdrop-filter: blur(15px);
+
+    border-radius: 12px;
+
+    color: var(--text);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.35);
+
+    transition:
+        transform 0.25s ease;
+}
+
+.toast.show {
+    transform:
+        translate(-50%, 0);
+}
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 250;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0,0,0,0.72);
+
+    backdrop-filter: blur(8px);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-card {
+    width: min(100%, 430px);
+
+    padding: 25px;
+
+    background:
+        #111722;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,0.5);
+}
+
+.modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.modal-head h3 {
+    font-size: 22px;
+}
+
+.close {
+    border: 0;
+    background: transparent;
+
+    color: var(--muted);
+
+    font-size: 27px;
+
+    cursor: pointer;
+}
+
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    margin-bottom: 18px;
+
+    padding: 4px;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border-radius: 12px;
+}
+
+.auth-tab {
+    border: 0;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    padding: 10px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+}
+
+.auth-tab.active {
+    background:
+        rgba(109,124,255,0.18);
+
+    color: white;
+}
+
+.field {
+    margin-bottom: 13px;
+}
+
+.field label {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 6px;
+}
+
+.field input {
+    width: 100%;
+
+    height: 46px;
+
+    padding:
+        0 13px;
+
+    color: white;
+
+    background:
+        #0b0f17;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 11px;
+
+    outline: none;
+}
+
+.field input:focus {
+    border-color:
+        rgba(109,124,255,0.55);
+}
+
+.auth-info {
+    font-size: 12px;
+
+    color: var(--muted);
+
+    margin-top: 12px;
+
+    line-height: 1.5;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    nav {
+        display: none;
     }
-    </script>
 
-    <style>
-        :root {
-            --bg: #080b12;
-            --bg-secondary: #0d111a;
-            --card: #111722;
-            --card-hover: #151d2b;
-            --border: rgba(255,255,255,0.08);
-
-            --text: #f5f7fb;
-            --muted: #8d98aa;
-
-            --accent: #6d7cff;
-            --accent-2: #8d63ff;
-
-            --success: #39d98a;
-            --warning: #ffbd59;
-            --danger: #ff647c;
-
-            --radius: 18px;
-            --max-width: 1180px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Helvetica,
-                Arial,
-                sans-serif;
-
-            background:
-                radial-gradient(
-                    circle at 20% 0%,
-                    rgba(109,124,255,0.13),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 90% 20%,
-                    rgba(141,99,255,0.10),
-                    transparent 30%
-                ),
-                var(--bg);
-
-            color: var(--text);
-            line-height: 1.5;
-            min-height: 100vh;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button {
-            font: inherit;
-        }
-
-        .container {
-            width: min(100% - 32px, var(--max-width));
-            margin: 0 auto;
-        }
-
-        /* HEADER */
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            background: rgba(8,11,18,0.78);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-inner {
-            min-height: 72px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            font-size: 21px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-mark {
-            width: 38px;
-            height: 38px;
-
-            display: grid;
-            place-items: center;
-
-            border-radius: 11px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--accent),
-                    var(--accent-2)
-                );
-
-            box-shadow:
-                0 8px 30px rgba(109,124,255,0.25);
-
-            font-weight: 900;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 26px;
-        }
-
-        nav a {
-            color: var(--muted);
-            font-size: 14px;
-            transition: 0.2s ease;
-        }
-
-        nav a:hover {
-            color: var(--text);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* BUTTONS */
-
-        .btn {
-            border: 0;
-            cursor: pointer;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            min-height: 44px;
-            padding: 0 18px;
-
-            border-radius: 12px;
-
-            font-weight: 700;
-            font-size: 14px;
-
-            transition:
-                transform 0.2s ease,
-                opacity 0.2s ease,
-                background 0.2s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-primary {
-            color: white;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--accent),
-                    var(--accent-2)
-                );
-
-            box-shadow:
-                0 10px 30px rgba(109,124,255,0.18);
-        }
-
-        .btn-secondary {
-            color: var(--text);
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border);
-        }
-
-        .btn-full {
-            width: 100%;
-        }
-
-        /* HERO */
-
-        .hero {
-            padding: 100px 0 80px;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-
-            padding: 8px 12px;
-            margin-bottom: 22px;
-
-            border-radius: 999px;
-
-            color: #b9c1ff;
-            background: rgba(109,124,255,0.10);
-            border: 1px solid rgba(109,124,255,0.20);
-
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .badge-dot {
-            width: 7px;
-            height: 7px;
-
-            border-radius: 50%;
-            background: var(--success);
-
-            box-shadow:
-                0 0 12px rgba(57,217,138,0.7);
-        }
-
-        .hero h1 {
-            max-width: 760px;
-
-            font-size:
-                clamp(42px, 7vw, 76px);
-
-            line-height: 0.98;
-            letter-spacing: -3px;
-
-            margin-bottom: 24px;
-        }
-
-        .gradient-text {
-            background:
-                linear-gradient(
-                    135deg,
-                    #ffffff 20%,
-                    #8995ff 70%,
-                    #a36cff
-                );
-
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-description {
-            max-width: 650px;
-
-            color: var(--muted);
-
-            font-size: 18px;
-            line-height: 1.7;
-
-            margin-bottom: 30px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .hero-note {
-            margin-top: 18px;
-
-            color: #697486;
-            font-size: 12px;
-        }
-
-        /* DASHBOARD CARD */
-
-        .dashboard-card {
-            position: relative;
-
-            padding: 24px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,0.07),
-                    rgba(255,255,255,0.025)
-                );
-
-            border:
-                1px solid rgba(255,255,255,0.10);
-
-            border-radius: 24px;
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,0.35);
-        }
-
-        .dashboard-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 26px;
-        }
-
-        .dashboard-title {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-
-            color: var(--success);
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .balance {
-            margin-bottom: 26px;
-        }
-
-        .balance-label {
-            color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-
-        .balance-value {
-            font-size: 40px;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-        }
-
-        .balance-value span {
-            color: var(--muted);
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .progress {
-            height: 8px;
-
-            background: rgba(255,255,255,0.06);
-            border-radius: 20px;
-
-            overflow: hidden;
-
-            margin: 14px 0 8px;
-        }
-
-        .progress-fill {
-            width: 68%;
-            height: 100%;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    var(--accent),
-                    var(--accent-2)
-                );
-
-            border-radius: inherit;
-        }
-
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-
-            color: var(--muted);
-            font-size: 11px;
-        }
-
-        .mini-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-
-            margin-top: 22px;
-        }
-
-        .mini-stat {
-            padding: 15px;
-
-            border:
-                1px solid var(--border);
-
-            background:
-                rgba(255,255,255,0.025);
-
-            border-radius: 14px;
-        }
-
-        .mini-stat strong {
-            display: block;
-            font-size: 20px;
-        }
-
-        .mini-stat span {
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        /* SECTION */
-
-        section {
-            padding: 80px 0;
-        }
-
-        .section-heading {
-            max-width: 680px;
-            margin-bottom: 38px;
-        }
-
-        .section-heading h2 {
-            font-size:
-                clamp(30px, 5vw, 46px);
-
-            line-height: 1.05;
-            letter-spacing: -1.5px;
-
-            margin-bottom: 14px;
-        }
-
-        .section-heading p {
-            color: var(--muted);
-            font-size: 16px;
-        }
-
-        /* TASKS */
-
-        .tasks-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 16px;
-        }
-
-        .task-card {
-            padding: 22px;
-
-            background: var(--card);
-
-            border:
-                1px solid var(--border);
-
-            border-radius: var(--radius);
-
-            transition:
-                transform 0.2s ease,
-                background 0.2s ease,
-                border-color 0.2s ease;
-        }
-
-        .task-card:hover {
-            transform: translateY(-3px);
-            background: var(--card-hover);
-            border-color: rgba(109,124,255,0.25);
-        }
-
-        .task-icon {
-            width: 44px;
-            height: 44px;
-
-            display: grid;
-            place-items: center;
-
-            margin-bottom: 18px;
-
-            border-radius: 13px;
-
-            background:
-                rgba(109,124,255,0.10);
-
-            font-size: 20px;
-        }
-
-        .task-card h3 {
-            font-size: 17px;
-            margin-bottom: 8px;
-        }
-
-        .task-card p {
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.6;
-
-            min-height: 62px;
-
-            margin-bottom: 20px;
-        }
-
-        .task-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .reward {
-            color: var(--success);
-            font-weight: 800;
-            font-size: 14px;
-        }
-
-        .task-button {
-            min-height: 38px;
-            padding: 0 13px;
-
-            color: white;
-
-            background:
-                rgba(109,124,255,0.15);
-
-            border:
-                1px solid rgba(109,124,255,0.25);
-
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            transition: 0.2s ease;
-        }
-
-        .task-button:hover {
-            background:
-                rgba(109,124,255,0.25);
-        }
-
-        .task-button.completed {
-            color: var(--success);
-            background:
-                rgba(57,217,138,0.08);
-
-            border-color:
-                rgba(57,217,138,0.18);
-
-            cursor: default;
-        }
-
-        /* HOW */
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .step {
-            position: relative;
-
-            padding: 26px;
-
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-        }
-
-        .step-number {
-            display: inline-grid;
-            place-items: center;
-
-            width: 36px;
-            height: 36px;
-
-            margin-bottom: 20px;
-
-            border-radius: 10px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--accent),
-                    var(--accent-2)
-                );
-
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .step h3 {
-            margin-bottom: 9px;
-        }
-
-        .step p {
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* AD */
-
-        .ad-box {
-            min-height: 150px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 30px;
-
-            border:
-                1px dashed rgba(255,255,255,0.15);
-
-            border-radius: var(--radius);
-
-            background:
-                rgba(255,255,255,0.02);
-
-            text-align: center;
-        }
-
-        .ad-content span {
-            display: block;
-
-            color: #687285;
-            font-size: 11px;
-
-            margin-bottom: 8px;
-
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .ad-content strong {
-            font-size: 16px;
-        }
-
-        .ad-content p {
-            color: var(--muted);
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        /* TELEGRAM */
-
-        .telegram {
-            position: relative;
-            overflow: hidden;
-
-            padding: 42px;
-
-            border-radius: 24px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(109,124,255,0.17),
-                    rgba(141,99,255,0.09)
-                );
-
-            border:
-                1px solid rgba(109,124,255,0.22);
-        }
-
-        .telegram h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .telegram p {
-            max-width: 650px;
-
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-
-        /* FAQ */
-
-        .faq {
-            display: grid;
-            gap: 10px;
-        }
-
-        details {
-            background: var(--card);
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 14px;
-
-            padding: 0 20px;
-        }
-
-        summary {
-            cursor: pointer;
-
-            list-style: none;
-
-            padding: 20px 0;
-
-            font-weight: 700;
-        }
-
-        summary::-webkit-details-marker {
-            display: none;
-        }
-
-        details p {
-            color: var(--muted);
-
-            padding:
-                0 0 20px;
-
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        /* NOTICE */
-
-        .notice {
-            padding: 18px;
-
-            border:
-                1px solid rgba(255,189,89,0.15);
-
-            background:
-                rgba(255,189,89,0.05);
-
-            border-radius: 14px;
-
-            color: #b9a986;
-
-            font-size: 12px;
-
-            line-height: 1.6;
-        }
-
-        /* FOOTER */
-
-        footer {
-            padding:
-                45px 0
-                calc(45px + env(safe-area-inset-bottom));
-
-            border-top:
-                1px solid var(--border);
-
-            color: var(--muted);
-        }
-
-        .footer-grid {
-            display: grid;
-
-            grid-template-columns:
-                1.4fr
-                1fr
-                1fr;
-
-            gap: 40px;
-        }
-
-        .footer-brand {
-            color: var(--text);
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .footer-description {
-            max-width: 350px;
-
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        .footer-column h4 {
-            color: var(--text);
-
-            font-size: 13px;
-
-            margin-bottom: 13px;
-        }
-
-        .footer-column a {
-            display: block;
-
-            font-size: 13px;
-
-            margin-bottom: 8px;
-
-            transition: 0.2s;
-        }
-
-        .footer-column a:hover {
-            color: var(--text);
-        }
-
-        .copyright {
-            margin-top: 35px;
-            padding-top: 20px;
-
-            border-top:
-                1px solid var(--border);
-
-            font-size: 12px;
-        }
-
-        /* TOAST */
-
-        .toast {
-            position: fixed;
-
-            left: 50%;
-            bottom: 25px;
-
-            transform:
-                translate(-50%, 120px);
-
-            z-index: 200;
-
-            max-width:
-                calc(100% - 30px);
-
-            padding:
-                13px 17px;
-
-            border:
-                1px solid var(--border);
-
-            background:
-                rgba(17,23,34,0.96);
-
-            backdrop-filter: blur(15px);
-
-            border-radius: 12px;
-
-            color: var(--text);
-
-            font-size: 13px;
-            font-weight: 600;
-
-            box-shadow:
-                0 20px 50px rgba(0,0,0,0.35);
-
-            transition:
-                transform 0.25s ease;
-        }
-
-        .toast.show {
-            transform:
-                translate(-50%, 0);
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 900px) {
-
-            nav {
-                display: none;
-            }
-
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 45px;
-            }
-
-            .tasks-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .steps {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .footer-grid {
-                grid-template-columns:
-                    1fr 1fr;
-            }
-        }
-
-        @media (max-width: 620px) {
-
-            .container {
-                width:
-                    min(
-                        100% - 22px,
-                        var(--max-width)
-                    );
-            }
-
-            .header-inner {
-                min-height: 64px;
-            }
-
-            .header-actions .btn-secondary {
-                display: none;
-            }
-
-            .logo {
-                font-size: 18px;
-            }
-
-            .logo-mark {
-                width: 34px;
-                height: 34px;
-            }
-
-            .hero {
-                padding:
-                    65px 0 55px;
-            }
-
-            .hero h1 {
-                font-size: 46px;
-                letter-spacing: -2px;
-            }
-
-            .hero-description {
-                font-size: 16px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .hero-buttons .btn {
-                width: 100%;
-            }
-
-            .dashboard-card {
-                padding: 20px;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-
-            .tasks-grid,
-            .steps {
-                grid-template-columns: 1fr;
-            }
-
-            .telegram {
-                padding: 28px 22px;
-            }
-
-            .telegram h2 {
-                font-size: 27px;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .balance-value {
-                font-size: 34px;
-            }
-        }
-    </style>
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .tasks-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .steps {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .footer-grid {
+        grid-template-columns:
+            1fr 1fr;
+    }
+}
+
+@media (max-width: 620px) {
+
+    .container {
+        width:
+            min(
+                100% - 22px,
+                var(--max-width)
+            );
+    }
+
+    .header-inner {
+        min-height: 64px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .logo-mark {
+        width: 34px;
+        height: 34px;
+    }
+
+    .header-actions .user-chip {
+        display: none !important;
+    }
+
+    .header-actions .btn-secondary {
+        display: none;
+    }
+
+    .hero {
+        padding:
+            65px 0 55px;
+    }
+
+    .hero h1 {
+        font-size: 46px;
+        letter-spacing: -2px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .dashboard-card {
+        padding: 20px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    .tasks-grid,
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .telegram {
+        padding: 28px 22px;
+    }
+
+    .telegram h2 {
+        font-size: 27px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .balance-value {
+        font-size: 34px;
+    }
+
+    .wallet-row {
+        display: block;
+    }
+
+    .wallet-value {
+        text-align: left;
+        margin-top: 5px;
+    }
+
+    .transaction {
+        flex-direction: column;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="container header-inner">
 
-        <a href="#top" class="logo" aria-label="YieldBox">
-            <div class="logo-mark">Y</div>
-            <span>YieldBox</span>
-        </a>
+<div class="container header-inner">
 
-        <nav>
-            <a href="#tasks">Задания</a>
-            <a href="#how">Как работает</a>
-            <a href="#faq">FAQ</a>
-        </nav>
+<a href="#top" class="logo">
+    <div class="logo-mark">Y</div>
+    <span>YieldBox</span>
+</a>
 
-        <div class="header-actions">
-            <a
-                class="btn btn-secondary"
-                href="#tasks">
-                Задания
-            </a>
+<nav>
+    <a href="#tasks">Задания</a>
+    <a href="#how">Как работает</a>
+    <a href="#wallet">Кошелёк</a>
+    <a href="#faq">FAQ</a>
+</nav>
 
-            <a
-                class="btn btn-primary"
-                href="#telegram">
-                Telegram
-            </a>
-        </div>
+<div class="header-actions">
 
+    <div class="user-chip" id="userChip">
+        <span id="userEmail"></span>
     </div>
+
+    <button
+        class="btn btn-secondary"
+        id="loginBtn"
+        onclick="openAuth('login')">
+        Войти
+    </button>
+
+    <button
+        class="btn btn-primary"
+        id="signupBtn"
+        onclick="openAuth('signup')">
+        Регистрация
+    </button>
+
+    <button
+        class="btn btn-danger"
+        id="logoutBtn"
+        style="display:none"
+        onclick="logoutUser()">
+        Выйти
+    </button>
+
+</div>
+
+</div>
+
 </header>
 
 
 <main id="top">
 
-    <!-- HERO -->
+<!-- HERO -->
 
-    <section class="hero">
+<section class="hero">
 
-        <div class="container hero-grid">
+<div class="container hero-grid">
 
-            <div>
+<div>
 
-                <div class="badge">
-                    <span class="badge-dot"></span>
-                    Платформа развивается
-                </div>
+<div class="badge">
+    <span class="badge-dot"></span>
+    Платформа развивается
+</div>
 
-                <h1>
-                    Выполняй.
-                    <span class="gradient-text">
-                        Получай бонусы.
-                    </span>
-                </h1>
+<h1>
+    Выполняй.
+    <span class="gradient-text">
+        Получай бонусы.
+    </span>
+</h1>
 
-                <p class="hero-description">
-                    YieldBox объединяет задания, бонусы и систему
-                    вознаграждений в одном удобном пространстве.
-                    Следи за прогрессом и управляй своими результатами.
-                </p>
+<p class="hero-description">
+    YieldBox объединяет задания, бонусы и систему
+    вознаграждений в одном удобном пространстве.
+    Следи за прогрессом и управляй своими результатами.
+</p>
 
-                <div class="hero-buttons">
+<div class="hero-buttons">
 
-                    <a
-                        href="#tasks"
-                        class="btn btn-primary">
-                        Смотреть задания
-                    </a>
+<a
+    href="#tasks"
+    class="btn btn-primary">
+    Смотреть задания
+</a>
 
-                    <a
-                        href="#how"
-                        class="btn btn-secondary">
-                        Как это работает
-                    </a>
+<a
+    href="#how"
+    class="btn btn-secondary">
+    Как это работает
+</a>
 
-                </div>
+</div>
 
-                <p class="hero-note">
-                    Без необходимости передавать нам приватные ключи
-                    или данные от ваших кошельков.
-                </p>
+<p class="hero-note">
+    Приватные ключи и seed-фразы никогда не требуются.
+</p>
 
-            </div>
+</div>
 
 
-            <div class="dashboard-card">
+<div class="dashboard-card">
 
-                <div class="dashboard-top">
+<div class="dashboard-top">
 
-                    <div class="dashboard-title">
-                        Ваш прогресс
-                    </div>
+<div
+    class="dashboard-title"
+    id="dashboardTitle">
+    Ваш прогресс
+</div>
 
-                    <div class="status">
-                        <span class="badge-dot"></span>
-                        Активен
-                    </div>
+<div class="status">
 
-                </div>
+<span class="badge-dot"></span>
 
+<span id="accountStatus">
+    Не авторизован
+</span>
 
-                <div class="balance">
+</div>
 
-                    <div class="balance-label">
-                        Демо-баланс
-                    </div>
+</div>
 
-                    <div
-                        class="balance-value"
-                        id="balance">
-                        0
-                        <span>BX</span>
-                    </div>
 
-                    <div class="progress">
-                        <div
-                            class="progress-fill"
-                            id="progress">
-                        </div>
-                    </div>
+<div class="balance">
 
-                    <div class="progress-text">
-                        <span>Прогресс</span>
-                        <span id="progressText">
-                            0%
-                        </span>
-                    </div>
+<div class="balance-label">
+    Баланс
+</div>
 
-                </div>
+<div
+    class="balance-value"
+    id="balance">
 
+    0 <span>BX</span>
 
-                <div class="mini-stats">
+</div>
 
-                    <div class="mini-stat">
-                        <strong id="completedCount">
-                            0
-                        </strong>
-                        <span>
-                            Выполнено
-                        </span>
-                    </div>
 
-                    <div class="mini-stat">
-                        <strong>
-                            5
-                        </strong>
-                        <span>
-                            Доступно
-                        </span>
-                    </div>
+<div class="progress">
 
-                </div>
+<div
+    class="progress-fill"
+    id="progress">
+</div>
 
-            </div>
+</div>
 
-        </div>
 
-    </section>
+<div class="progress-text">
 
+<span>
+    Прогресс заданий
+</span>
 
-    <!-- TASKS -->
+<span id="progressText">
+    0%
+</span>
 
-    <section id="tasks">
+</div>
 
-        <div class="container">
+</div>
 
-            <div class="section-heading">
 
-                <h2>
-                    Доступные задания
-                </h2>
+<div class="mini-stats">
 
-                <p>
-                    Выбирай доступные задания и получай бонусы
-                    за выполнение условий.
-                </p>
+<div class="mini-stat">
 
-            </div>
+<strong id="completedCount">
+    0
+</strong>
 
+<span>
+    Выполнено
+</span>
 
-            <div class="tasks-grid">
+</div>
 
-                <article
-                    class="task-card"
-                    data-task="telegram"
-                    data-reward="50">
 
-                    <div class="task-icon">
-                        T
-                    </div>
+<div class="mini-stat">
 
-                    <h3>
-                        Подписка на Telegram
-                    </h3>
+<strong id="availableCount">
+    0
+</strong>
 
-                    <p>
-                        Перейдите в официальный Telegram-канал
-                        YieldBox и подпишитесь.
-                    </p>
+<span>
+    Доступно
+</span>
 
-                    <div class="task-bottom">
+</div>
 
-                        <span class="reward">
-                            +50 BX
-                        </span>
+</div>
 
-                        <button
-                            class="task-button"
-                            onclick="completeTask('telegram', 50, this)">
-                            Выполнить
-                        </button>
+</div>
 
-                    </div>
+</div>
 
-                </article>
+</section>
 
 
-                <article
-                    class="task-card"
-                    data-task="visit"
-                    data-reward="30">
+<!-- TASKS -->
 
-                    <div class="task-icon">
-                        W
-                    </div>
+<section id="tasks">
 
-                    <h3>
-                        Посетить страницу
-                    </h3>
+<div class="container">
 
-                    <p>
-                        Ознакомьтесь с возможностями
-                        платформы YieldBox.
-                    </p>
+<div class="section-heading">
 
-                    <div class="task-bottom">
+<h2>
+    Доступные задания
+</h2>
 
-                        <span class="reward">
-                            +30 BX
-                        </span>
+<p>
+    Выполняй доступные задания и получай BX
+    после подтверждения системой.
+</p>
 
-                        <button
-                            class="task-button"
-                            onclick="completeTask('visit', 30, this)">
-                            Выполнить
-                        </button>
+</div>
 
-                    </div>
 
-                </article>
+<div
+    class="tasks-grid"
+    id="tasksGrid">
 
+<div class="task-card">
 
-                <article
-                    class="task-card"
-                    data-task="share"
-                    data-reward="75">
+<div class="task-icon">
+    …
+</div>
 
-                    <div class="task-icon">
-                        S
-                    </div>
+<h3>
+    Загрузка заданий
+</h3>
 
-                    <h3>
-                        Поделиться
-                    </h3>
+<p>
+    Подключаем список заданий из базы данных.
+</p>
 
-                    <p>
-                        Поделитесь информацией о платформе
-                        с друзьями или в социальной сети.
-                    </p>
+</div>
 
-                    <div class="task-bottom">
+</div>
 
-                        <span class="reward">
-                            +75 BX
-                        </span>
+</div>
 
-                        <button
-                            class="task-button"
-                            onclick="completeTask('share', 75, this)">
-                            Выполнить
-                        </button>
+</section>
 
-                    </div>
 
-                </article>
+<!-- HOW -->
 
+<section id="how">
 
-                <article
-                    class="task-card"
-                    data-task="profile"
-                    data-reward="100">
+<div class="container">
 
-                    <div class="task-icon">
-                        P
-                    </div>
+<div class="section-heading">
 
-                    <h3>
-                        Заполнить профиль
-                    </h3>
+<h2>
+    Как работает YieldBox
+</h2>
 
-                    <p>
-                        Заполните основные данные профиля
-                        после появления регистрации.
-                    </p>
+<p>
+    Простая модель взаимодействия без лишних действий.
+</p>
 
-                    <div class="task-bottom">
+</div>
 
-                        <span class="reward">
-                            +100 BX
-                        </span>
 
-                        <button
-                            class="task-button"
-                            onclick="completeTask('profile', 100, this)">
-                            Выполнить
-                        </button>
+<div class="steps">
 
-                    </div>
+<div class="step">
 
-                </article>
+<div class="step-number">
+    01
+</div>
 
+<h3>
+    Выбираете задание
+</h3>
 
-                <article
-                    class="task-card"
-                    data-task="daily"
-                    data-reward="25">
+<p>
+    На платформе отображаются доступные
+    задания и условия их выполнения.
+</p>
 
-                    <div class="task-icon">
-                        D
-                    </div>
+</div>
 
-                    <h3>
-                        Ежедневный бонус
-                    </h3>
 
-                    <p>
-                        Проверяйте платформу каждый день,
-                        чтобы получать доступные бонусы.
-                    </p>
+<div class="step">
 
-                    <div class="task-bottom">
+<div class="step-number">
+    02
+</div>
 
-                        <span class="reward">
-                            +25 BX
-                        </span>
+<h3>
+    Выполняете условие
+</h3>
 
-                        <button
-                            class="task-button"
-                            onclick="completeTask('daily', 25, this)">
-                            Получить
-                        </button>
+<p>
+    Система фиксирует выполнение
+    и проверяет доступность награды.
+</p>
 
-                    </div>
+</div>
 
-                </article>
 
+<div class="step">
 
-                <article class="task-card">
+<div class="step-number">
+    03
+</div>
 
-                    <div class="task-icon">
-                        +
-                    </div>
+<h3>
+    Получаете бонус
+</h3>
 
-                    <h3>
-                        Новые задания
-                    </h3>
+<p>
+    После подтверждения награда
+    зачисляется на ваш BX-баланс.
+</p>
 
-                    <p>
-                        В будущем список заданий будет
-                        обновляться через систему управления.
-                    </p>
+</div>
 
-                    <div class="task-bottom">
+</div>
 
-                        <span class="reward">
-                            Скоро
-                        </span>
+</div>
 
-                        <button
-                            class="task-button"
-                            onclick="showToast('Новые задания появятся после подключения системы заданий.')">
-                            Подробнее
-                        </button>
+</section>
 
-                    </div>
 
-                </article>
+<!-- WALLET -->
 
-            </div>
+<section id="wallet">
 
-        </div>
+<div class="container">
 
-    </section>
+<div class="section-heading">
 
+<h2>
+    Кошелёк
+</h2>
 
-    <!-- HOW -->
+<p>
+    Адрес для операций с USDT TRC20.
+    Никогда не передавайте приватные ключи.
+</p>
 
-    <section id="how">
+</div>
 
-        <div class="container">
 
-            <div class="section-heading">
+<div class="wallet-box">
 
-                <h2>
-                    Как работает YieldBox
-                </h2>
+<div class="wallet-row">
 
-                <p>
-                    Простая модель взаимодействия без лишних действий.
-                </p>
+<div class="wallet-label">
+    Сеть
+</div>
 
-            </div>
+<div class="wallet-value">
+    USDT TRC20
+</div>
 
+</div>
 
-            <div class="steps">
 
-                <div class="step">
+<div class="wallet-row">
 
-                    <div class="step-number">
-                        01
-                    </div>
+<div class="wallet-label">
+    Адрес
+</div>
 
-                    <h3>
-                        Выбираете задание
-                    </h3>
+<div
+    class="wallet-value"
+    id="walletAddress">
 
-                    <p>
-                        На платформе отображаются доступные
-                        задания и условия их выполнения.
-                    </p>
+    TDb4iL56dJcxZMY2MThW5DFxGHzXspcEbt
 
-                </div>
+</div>
 
+</div>
 
-                <div class="step">
 
-                    <div class="step-number">
-                        02
-                    </div>
+<div class="wallet-row">
 
-                    <h3>
-                        Выполняете условие
-                    </h3>
+<div class="wallet-label">
+    Статус выплат
+</div>
 
-                    <p>
-                        После выполнения задания система
-                        должна проверить его результат.
-                    </p>
+<div class="wallet-value">
+    Подготовка серверной системы
+</div>
 
-                </div>
+</div>
 
+</div>
 
-                <div class="step">
+</div>
 
-                    <div class="step-number">
-                        03
-                    </div>
+</section>
 
-                    <h3>
-                        Получаете бонус
-                    </h3>
 
-                    <p>
-                        После подтверждения результат
-                        отображается в вашем аккаунте.
-                    </p>
+<!-- ACCOUNT -->
 
-                </div>
+<section id="account">
 
-            </div>
+<div class="container">
 
-        </div>
+<div class="section-heading">
 
-    </section>
+<h2>
+    Мой аккаунт
+</h2>
 
+<p>
+    После входа здесь отображаются данные
+    аккаунта и последние операции.
+</p>
 
-    <!-- ADVERTISEMENT -->
+</div>
 
-    <section>
 
-        <div class="container">
+<div class="account-box">
 
-            <div class="ad-box">
+<div id="accountGuest">
 
-                <div class="ad-content">
+Войдите или зарегистрируйтесь,
+чтобы увидеть данные аккаунта.
 
-                    <span>
-                        Реклама
-                    </span>
+</div>
 
-                    <strong>
-                        Рекламное место YieldBox
-                    </strong>
 
-                    <p>
-                        Здесь позже можно подключить
-                        рекламную сеть или собственные рекламные размещения.
-                    </p>
+<div
+    id="accountData"
+    style="display:none">
 
-                </div>
+<div class="wallet-row">
 
-            </div>
+<div class="wallet-label">
+    Email
+</div>
 
-        </div>
+<div
+    class="wallet-value"
+    id="accountEmail">
+    —
+</div>
 
-    </section>
+</div>
 
 
-    <!-- TELEGRAM -->
+<div class="wallet-row">
 
-    <section id="telegram">
+<div class="wallet-label">
+    BX баланс
+</div>
 
-        <div class="container">
+<div
+    class="wallet-value"
+    id="accountBalance">
+    0 BX
+</div>
 
-            <div class="telegram">
+</div>
 
-                <h2>
-                    Следи за обновлениями
-                </h2>
 
-                <p>
-                    Новости платформы, новые задания,
-                    обновления и важная информация будут
-                    публиковаться в Telegram.
-                </p>
+<h3 style="margin-top:20px">
+    Последние операции
+</h3>
 
-                <!--
-                    ВАЖНО:
-                    Замени ссылку ниже на настоящий Telegram.
-                -->
 
-                <a
-                    href="https://t.me/your_channel"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-primary">
-                    Открыть Telegram
-                </a>
+<div
+    class="transactions"
+    id="transactions">
 
-            </div>
+<div class="tx-muted">
+    Операций пока нет.
+</div>
 
-        </div>
+</div>
 
-    </section>
+</div>
 
+</div>
 
-    <!-- FAQ -->
+</div>
 
-    <section id="faq">
+</section>
 
-        <div class="container">
 
-            <div class="section-heading">
+<!-- AD -->
 
-                <h2>
-                    Частые вопросы
-                </h2>
+<section>
 
-                <p>
-                    Основная информация о платформе.
-                </p>
+<div class="container">
 
-            </div>
+<div class="ad-box">
 
+<div class="ad-content">
 
-            <div class="faq">
+<span>
+    Реклама
+</span>
 
-                <details>
+<strong>
+    Рекламное место YieldBox
+</strong>
 
-                    <summary>
-                        Что такое YieldBox?
-                    </summary>
+<p>
+    Здесь позже можно подключить рекламную сеть
+    или собственные рекламные размещения.
+</p>
 
-                    <p>
-                        YieldBox — проект, ориентированный на задания,
-                        бонусы и систему вознаграждений.
-                    </p>
+</div>
 
-                </details>
+</div>
 
+</div>
 
-                <details>
+</section>
 
-                    <summary>
-                        Нужно ли пополнять баланс?
-                    </summary>
 
-                    <p>
-                        Для доступа к демонстрационным заданиям
-                        пополнение не требуется. Реальные финансовые
-                        операции будут подключаться отдельно и
-                        прозрачно после внедрения серверной части.
-                    </p>
+<!-- TELEGRAM -->
 
-                </details>
+<section id="telegram">
 
+<div class="container">
 
-                <details>
+<div class="telegram">
 
-                    <summary>
-                        Когда появятся аккаунты?
-                    </summary>
+<h2>
+    Следи за обновлениями
+</h2>
 
-                    <p>
-                        Регистрация и авторизация будут подключены
-                        на следующем этапе через серверную часть.
-                    </p>
+<p>
+    Новости платформы, новые задания,
+    обновления и важная информация будут
+    публиковаться в Telegram и TikTok.
+</p>
 
-                </details>
 
+<div class="social-buttons">
 
-                <details>
+<a
+    href="https://t.me/+ABjTgdC9to44ZWFl"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn btn-primary">
 
-                    <summary>
-                        Как будут работать выплаты?
-                    </summary>
+    Открыть канал
 
-                    <p>
-                        Для реальных выплат потребуется серверная
-                        система, база данных и проверенный платёжный
-                        механизм. Статическая версия сайта не выполняет
-                        реальные переводы.
-                    </p>
+</a>
 
-                </details>
 
+<a
+    href="https://t.me/IIIIIIlIlIllllIl"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn btn-secondary">
 
-                <details>
+    Связаться в Telegram
 
-                    <summary>
-                        Безопасно ли передавать приватный ключ?
-                    </summary>
+</a>
 
-                    <p>
-                        Приватные ключи и seed-фразы никогда не должны
-                        передаваться сайту или администраторам.
-                    </p>
 
-                </details>
+<a
+    href="https://www.tiktok.com/@traffic.nort?_r=1&_t=ZS-9A10ipWXryW"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn btn-secondary">
 
-            </div>
+    TikTok
 
-        </div>
+</a>
 
-    </section>
+</div>
 
+</div>
 
-    <!-- NOTICE -->
+</div>
 
-    <section>
+</section>
 
-        <div class="container">
 
-            <div class="notice">
-                Текущая версия YieldBox является frontend-прототипом.
-                Баланс и выполнение заданий в этой версии работают
-                локально в браузере и не являются реальными денежными
-                операциями. Для настоящих пользователей, базы данных,
-                проверки заданий и выплат потребуется серверная система.
-            </div>
+<!-- FAQ -->
 
-        </div>
+<section id="faq">
 
-    </section>
+<div class="container">
+
+<div class="section-heading">
+
+<h2>
+    Частые вопросы
+</h2>
+
+<p>
+    Основная информация о платформе.
+</p>
+
+</div>
+
+
+<div class="faq">
+
+<details>
+
+<summary>
+    Что такое YieldBox?
+</summary>
+
+<p>
+    YieldBox — проект, ориентированный
+    на задания, бонусы и цифровые вознаграждения.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+    Нужно ли пополнять баланс?
+</summary>
+
+<p>
+    Для выполнения доступных бонусных заданий
+    пополнение не требуется.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+    Как работает аккаунт?
+</summary>
+
+<p>
+    Регистрация и вход выполняются через
+    Supabase Auth. Баланс и операции хранятся
+    на серверной стороне.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+    Как будут работать выплаты?
+</summary>
+
+<p>
+    Реальные выплаты требуют отдельного
+    серверного механизма, проверки заявок
+    и защиты от мошенничества.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+    Безопасно ли передавать приватный ключ?
+</summary>
+
+<p>
+    Нет. Приватные ключи, seed-фразы и пароли
+    от криптокошельков нельзя передавать сайту
+    или администраторам.
+</p>
+
+</details>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NOTICE -->
+
+<section>
+
+<div class="container">
+
+<div class="notice">
+
+YieldBox использует Supabase для авторизации,
+профилей, кошельков, заданий и транзакций.
+Награды начисляются серверной функцией
+complete_task.
+
+Реальные криптовалютные выплаты требуют
+отдельного безопасного backend-механизма.
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 
+<!-- FOOTER -->
+
 <footer>
 
-    <div class="container">
+<div class="container">
 
-        <div class="footer-grid">
+<div class="footer-grid">
 
-            <div>
+<div>
 
-                <div class="footer-brand">
-                    YieldBox
-                </div>
+<div class="footer-brand">
+    YieldBox
+</div>
 
-                <p class="footer-description">
-                    Платформа для заданий, бонусов
-                    и цифровых вознаграждений.
-                </p>
+<p class="footer-description">
+    Платформа для заданий, бонусов
+    и цифровых вознаграждений.
+</p>
 
-            </div>
-
-
-            <div class="footer-column">
-
-                <h4>
-                    Навигация
-                </h4>
-
-                <a href="#tasks">
-                    Задания
-                </a>
-
-                <a href="#how">
-                    Как работает
-                </a>
-
-                <a href="#faq">
-                    FAQ
-                </a>
-
-            </div>
+</div>
 
 
-            <div class="footer-column">
+<div class="footer-column">
 
-                <h4>
-                    Информация
-                </h4>
+<h4>
+    Навигация
+</h4>
 
-                <a href="#">
-                    Политика конфиденциальности
-                </a>
+<a href="#tasks">
+    Задания
+</a>
 
-                <a href="#">
-                    Условия использования
-                </a>
+<a href="#how">
+    Как работает
+</a>
 
-                <a href="#telegram">
-                    Telegram
-                </a>
+<a href="#wallet">
+    Кошелёк
+</a>
 
-            </div>
+<a href="#faq">
+    FAQ
+</a>
 
-        </div>
+</div>
 
 
-        <div class="copyright">
-            © <span id="year"></span> YieldBox. Все права защищены.
-        </div>
+<div class="footer-column">
 
-    </div>
+<h4>
+    Социальные сети
+</h4>
+
+<a
+    href="https://t.me/+ABjTgdC9to44ZWFl"
+    target="_blank">
+
+    Telegram канал
+
+</a>
+
+<a
+    href="https://t.me/IIIIIIlIlIllllIl"
+    target="_blank">
+
+    Telegram
+
+</a>
+
+<a
+    href="https://www.tiktok.com/@traffic.nort?_r=1&_t=ZS-9A10ipWXryW"
+    target="_blank">
+
+    TikTok
+
+</a>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+
+© <span id="year"></span>
+YieldBox. Все права защищены.
+
+</div>
+
+</div>
 
 </footer>
 
+
+<!-- TOAST -->
 
 <div
     class="toast"
@@ -1784,323 +2094,1423 @@
 </div>
 
 
+<!-- AUTH MODAL -->
+
+<div
+    class="modal"
+    id="authModal">
+
+<div class="modal-card">
+
+<div class="modal-head">
+
+<h3 id="authTitle">
+    Вход в YieldBox
+</h3>
+
+<button
+    class="close"
+    onclick="closeAuth()">
+
+    ×
+
+</button>
+
+</div>
+
+
+<div class="auth-tabs">
+
+<button
+    class="auth-tab active"
+    id="tabLogin"
+    onclick="setAuthMode('login')">
+
+    Войти
+
+</button>
+
+
+<button
+    class="auth-tab"
+    id="tabSignup"
+    onclick="setAuthMode('signup')">
+
+    Регистрация
+
+</button>
+
+</div>
+
+
+<form
+    id="authForm"
+    onsubmit="submitAuth(event)">
+
+<div class="field">
+
+<label>
+    Email
+</label>
+
+<input
+    id="authEmail"
+    type="email"
+    autocomplete="email"
+    required>
+
+</div>
+
+
+<div class="field">
+
+<label>
+    Пароль
+</label>
+
+<input
+    id="authPassword"
+    type="password"
+    autocomplete="current-password"
+    minlength="6"
+    required>
+
+</div>
+
+
+<button
+    class="btn btn-primary btn-full"
+    id="authSubmit">
+
+    Войти
+
+</button>
+
+
+<div
+    class="auth-info"
+    id="authInfo">
+
+    Используйте email и пароль для входа.
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
-    /*
-     * ==========================================
-     * YIELDBOX FRONTEND DEMO
-     * ==========================================
-     *
-     * ВАЖНО:
-     * Этот код НЕ является системой реальных выплат.
-     * Данные сохраняются только в localStorage браузера.
-     *
-     * Реальный баланс, аккаунты, задания и выплаты
-     * подключим через backend на следующем этапе.
-     */
+
+/*
+==================================================
+YIELDBOX SUPABASE CONFIGURATION
+==================================================
+*/
+
+const SUPABASE_URL =
+    "https://wjxigznqfdaejkbzyiqp.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_nejEp7OA4rFzNfQggLGppg_oDhjl5sA";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-    const STORAGE_KEY = "yieldbox_demo_data";
+/*
+==================================================
+STATE
+==================================================
+*/
+
+let currentUser = null;
+
+let authMode = "login";
+
+let tasks = [];
+
+let completedIds = new Set();
+
+let walletBalance = 0;
 
 
-    let data = {
-    balance: 0,
-    completed: []
-};
+/*
+==================================================
+TOAST
+==================================================
+*/
 
+function showToast(message) {
 
-    function loadData() {
+    const toast =
+        document.getElementById("toast");
 
-        try {
-
-            const saved =
-                localStorage.getItem(STORAGE_KEY);
-
-            if (saved) {
-
-                const parsed =
-                    JSON.parse(saved);
-
-                if (
-                    typeof parsed.balance === "number" &&
-                    Array.isArray(parsed.completed)
-                ) {
-
-                    data = parsed;
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "YieldBox storage error:",
-                error
-            );
-
-        }
-
+    if (!toast) {
+        return;
     }
 
+    toast.textContent = message;
 
-    function saveData() {
+    toast.classList.add("show");
 
-        try {
+    clearTimeout(
+        window.yieldBoxToastTimer
+    );
 
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(data)
-            );
+    window.yieldBoxToastTimer =
+        setTimeout(() => {
 
-        } catch (error) {
+            toast.classList.remove("show");
 
-            console.error(
-                "YieldBox save error:",
-                error
-            );
-
-        }
-    }
+        }, 3200);
+}
 
 
-    function updateDashboard() {
+/*
+==================================================
+AUTH MODAL
+==================================================
+*/
 
-        const balance =
-            document.getElementById("balance");
+function openAuth(mode = "login") {
 
-        const completedCount =
-            document.getElementById("completedCount");
+    setAuthMode(mode);
 
-        const progress =
-            document.getElementById("progress");
+    document
+        .getElementById("authModal")
+        .classList.add("show");
 
-        const progressText =
-            document.getElementById("progressText");
-
-
-        if (balance) {
-
-            balance.innerHTML =
-                `${data.balance} <span>BX</span>`;
-
-        }
-
-
-        if (completedCount) {
-
-            completedCount.textContent =
-                data.completed.length;
-
-        }
-
-
-        const totalTasks = 5;
-
-        const percentage =
-            Math.min(
-                100,
-                Math.round(
-                    (data.completed.length / totalTasks) * 100
-                )
-            );
-
-
-        if (progress) {
-
-            progress.style.width =
-                `${percentage}%`;
-
-        }
-
-
-        if (progressText) {
-
-            progressText.textContent =
-                `${percentage}%`;
-
-        }
-
-
-        updateTaskButtons();
-
-    }
-
-
-    function updateTaskButtons() {
+    setTimeout(() => {
 
         document
-            .querySelectorAll("[data-task]")
-            .forEach(card => {
+            .getElementById("authEmail")
+            .focus();
 
-                const id =
-                    card.dataset.task;
-
-                const button =
-                    card.querySelector(".task-button");
-
-                if (!button) {
-                    return;
-                }
-
-
-                if (
-                    data.completed.includes(id)
-                ) {
-
-                    button.textContent =
-                        "Выполнено";
-
-                    button.classList.add(
-                        "completed"
-                    );
-
-                    button.disabled = true;
-
-                }
-
-            });
-
-    }
-
-async function completeTask(taskId, reward, button) {
-    if (!supabaseClient) {
-        showToast("Ошибка подключения к серверу.");
-        return;
-    }
-
-    const { data: { user } } =
-        await supabaseClient.auth.getUser();
-
-    if (!user) {
-        showToast("Сначала войдите в аккаунт.");
-        return;
-    }
-
-    const { error } = await supabaseClient
-        .rpc("complete_task", {
-            p_task_id: taskId
-        });
-
-    if (error) {
-        console.error(error);
-        showToast("Не удалось выполнить задание.");
-        return;
-    }
-
-    if (button) {
-        button.textContent = "Выполнено";
-        button.classList.add("completed");
-        button.disabled = true;
-    }
-
-    showToast(`Бонус +${reward} BX начислен.`);
+    }, 50);
 }
-    
-    function showToast(message) {
-
-        const toast =
-            document.getElementById("toast");
-
-        if (!toast) {
-            return;
-        }
 
 
-        toast.textContent =
-            message;
+function closeAuth() {
 
-        toast.classList.add("show");
+    document
+        .getElementById("authModal")
+        .classList.remove("show");
+
+}
 
 
-        clearTimeout(
-            window.yieldBoxToastTimer
+function setAuthMode(mode) {
+
+    authMode = mode;
+
+    const isLogin =
+        mode === "login";
+
+
+    document
+        .getElementById("authTitle")
+        .textContent =
+        isLogin
+            ? "Вход в YieldBox"
+            : "Регистрация в YieldBox";
+
+
+    document
+        .getElementById("authSubmit")
+        .textContent =
+        isLogin
+            ? "Войти"
+            : "Создать аккаунт";
+
+
+    document
+        .getElementById("authInfo")
+        .textContent =
+        isLogin
+            ? "Используйте email и пароль для входа."
+            : "После регистрации может потребоваться подтверждение email.";
+
+
+    document
+        .getElementById("tabLogin")
+        .classList.toggle(
+            "active",
+            isLogin
         );
 
 
-        window.yieldBoxToastTimer =
-            setTimeout(() => {
+    document
+        .getElementById("tabSignup")
+        .classList.toggle(
+            "active",
+            !isLogin
+        );
 
-                toast.classList.remove(
-                    "show"
+}
+
+
+/*
+==================================================
+REGISTRATION / LOGIN
+==================================================
+*/
+
+async function submitAuth(event) {
+
+    event.preventDefault();
+
+
+    const email =
+        document
+            .getElementById("authEmail")
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById("authPassword")
+            .value;
+
+
+    if (!email || !password) {
+
+        showToast(
+            "Заполните все поля."
+        );
+
+        return;
+    }
+
+
+    const button =
+        document
+            .getElementById("authSubmit");
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Обработка...";
+
+
+    try {
+
+        if (authMode === "signup") {
+
+            const { error } =
+                await supabaseClient.auth.signUp({
+
+                    email,
+                    password,
+
+                    options: {
+
+                        emailRedirectTo:
+                            window.location.href
+
+                    }
+
+                });
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            showToast(
+                "Регистрация создана. Проверьте почту, если подтверждение включено."
+            );
+
+
+            closeAuth();
+
+        } else {
+
+            const { error } =
+                await supabaseClient.auth
+                    .signInWithPassword({
+
+                        email,
+                        password
+
+                    });
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            showToast(
+                "Вы успешно вошли в YieldBox."
+            );
+
+
+            closeAuth();
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Auth error:",
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            "Произошла ошибка."
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+            authMode === "login"
+                ? "Войти"
+                : "Создать аккаунт";
+
+    }
+
+}
+
+
+/*
+==================================================
+LOGOUT
+==================================================
+*/
+
+async function logoutUser() {
+
+    const { error } =
+        await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        showToast(
+            error.message
+        );
+
+        return;
+    }
+
+
+    showToast(
+        "Вы вышли из аккаунта."
+    );
+
+}
+
+
+/*
+==================================================
+ESCAPE HTML
+==================================================
+*/
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    ).replace(
+        /[&<>"']/g,
+        function(char) {
+
+            const map = {
+
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+
+            };
+
+            return map[char];
+
+        }
+    );
+
+}
+
+
+/*
+==================================================
+LOAD TASKS
+==================================================
+*/
+
+async function loadTasks() {
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("tasks")
+                .select("*")
+                .eq("is_active", true)
+                .order(
+                    "created_at",
+                    {
+                        ascending: true
+                    }
                 );
 
-            }, 3000);
 
+        if (error) {
+            throw error;
+        }
+
+
+        tasks =
+            (data || []).map(
+                (task, index) => ({
+
+                    ...task,
+
+                    icon:
+                        [
+                            "T",
+                            "W",
+                            "S",
+                            "P",
+                            "D",
+                            "+"
+                        ][index] || "B",
+
+                    action:
+                        index === 4
+                            ? "Получить"
+                            : "Выполнить"
+
+                })
+            );
+
+
+        renderTasks();
+
+
+    } catch (error) {
+
+        console.error(
+            "Task loading error:",
+            error
+        );
+
+
+        document
+            .getElementById("tasksGrid")
+            .innerHTML = `
+
+                <div class="task-card">
+
+                    <div class="task-icon">
+                        !
+                    </div>
+
+                    <h3>
+                        Не удалось загрузить задания
+                    </h3>
+
+                    <p>
+                        Проверь подключение Supabase
+                        и наличие активных заданий
+                        в таблице tasks.
+                    </p>
+
+                </div>
+
+            `;
+
+
+        document
+            .getElementById("availableCount")
+            .textContent = "0";
+
+    }
+
+}
+
+
+/*
+==================================================
+RENDER TASKS
+==================================================
+*/
+
+function renderTasks() {
+
+    const grid =
+        document.getElementById(
+            "tasksGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    if (!tasks.length) {
+
+        grid.innerHTML = `
+
+            <div class="task-card">
+
+                <div class="task-icon">
+                    +
+                </div>
+
+                <h3>
+                    Заданий пока нет
+                </h3>
+
+                <p>
+                    Новые задания появятся
+                    после их добавления в систему.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    tasks.forEach(
+        (task, index) => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "task-card";
+
+
+            card.dataset.taskId =
+                task.id;
+
+
+            card.innerHTML = `
+
+                <div class="task-icon">
+                    ${escapeHtml(
+                        task.icon || "B"
+                    )}
+                </div>
+
+                <h3>
+                    ${escapeHtml(
+                        task.title ||
+                        "Задание"
+                    )}
+                </h3>
+
+                <p>
+                    ${escapeHtml(
+                        task.description ||
+                        "Выполните условие задания."
+                    )}
+                </p>
+
+                <div class="task-bottom">
+
+                    <span class="reward">
+                        +${Number(
+                            task.reward || 0
+                        )} BX
+                    </span>
+
+                    <button
+                        class="task-button">
+
+                        ${escapeHtml(
+                            task.action ||
+                            "Выполнить"
+                        )}
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            const button =
+                card.querySelector(
+                    ".task-button"
+                );
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    handleTask(
+                        task,
+                        button
+                    );
+
+                }
+            );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "availableCount"
+        )
+        .textContent =
+        tasks.length;
+
+
+    updateTaskButtons();
+
+}
+
+
+/*
+==================================================
+TASK COMPLETION
+==================================================
+*/
+
+async function handleTask(
+    task,
+    button
+) {
+
+    if (!currentUser) {
+
+        openAuth("login");
+
+        showToast(
+            "Сначала войдите в аккаунт."
+        );
+
+        return;
+    }
+
+
+    if (!task.id) {
+
+        showToast(
+            "У задания отсутствует ID."
+        );
+
+        return;
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Проверка...";
+
+
+    const { data, error } =
+        await supabaseClient
+            .rpc(
+                "complete_task",
+                {
+                    p_task_id:
+                        task.id
+                }
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Complete task error:",
+            error
+        );
+
+
+        button.disabled = false;
+
+        button.textContent =
+            task.action ||
+            "Выполнить";
+
+
+        showToast(
+            error.message ||
+            "Не удалось выполнить задание."
+        );
+
+        return;
+    }
+
+
+    const reward =
+        Number(
+            data?.reward ??
+            task.reward ??
+            0
+        );
+
+
+    showToast(
+        `Бонус +${reward} BX начислен.`
+    );
+
+
+    await loadUserData();
+
+}
+
+
+/*
+==================================================
+TASK BUTTON STATES
+==================================================
+*/
+
+function updateTaskButtons() {
+
+    document
+        .querySelectorAll(
+            ".task-card"
+        )
+        .forEach(card => {
+
+            const id =
+                card.dataset.taskId;
+
+
+            const button =
+                card.querySelector(
+                    ".task-button"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            if (
+                id &&
+                completedIds.has(id)
+            ) {
+
+                button.textContent =
+                    "Выполнено";
+
+                button.classList.add(
+                    "completed"
+                );
+
+                button.disabled =
+                    true;
+
+            }
+
+        });
+
+}
+
+
+/*
+==================================================
+DASHBOARD
+==================================================
+*/
+
+function updateDashboard() {
+
+    const completedCount =
+        completedIds.size;
+
+
+    const totalTasks =
+        tasks.length || 1;
+
+
+    const percentage =
+        Math.min(
+            100,
+            Math.round(
+                (
+                    completedCount /
+                    totalTasks
+                ) * 100
+            )
+        );
+
+
+    document
+        .getElementById(
+            "balance"
+        )
+        .innerHTML = `
+
+            ${Number(
+                walletBalance
+            ).toLocaleString("ru-RU")}
+
+            <span>
+                BX
+            </span>
+
+        `;
+
+
+    document
+        .getElementById(
+            "accountBalance"
+        )
+        .textContent =
+        `${Number(
+            walletBalance
+        ).toLocaleString("ru-RU")} BX`;
+
+
+    document
+        .getElementById(
+            "completedCount"
+        )
+        .textContent =
+        completedCount;
+
+
+    document
+        .getElementById(
+            "progress"
+        )
+        .style.width =
+        `${percentage}%`;
+
+
+    document
+        .getElementById(
+            "progressText"
+        )
+        .textContent =
+        `${percentage}%`;
+
+
+    updateTaskButtons();
+
+}
+
+
+/*
+==================================================
+TRANSACTIONS
+==================================================
+*/
+
+function renderTransactions(
+    rows
+) {
+
+    const box =
+        document.getElementById(
+            "transactions"
+        );
+
+
+    if (!rows.length) {
+
+        box.innerHTML = `
+
+            <div class="tx-muted">
+                Операций пока нет.
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    box.innerHTML =
+        rows.map(
+            transaction => {
+
+                const amount =
+                    Number(
+                        transaction.amount ||
+                        0
+                    );
+
+
+                const sign =
+                    amount >= 0
+                        ? "+"
+                        : "";
+
+
+                const date =
+                    transaction.created_at
+                        ? new Date(
+                            transaction.created_at
+                        ).toLocaleString(
+                            "ru-RU",
+                            {
+                                dateStyle:
+                                    "short",
+                                timeStyle:
+                                    "short"
+                            }
+                        )
+                        : "";
+
+
+                return `
+
+                    <div class="transaction">
+
+                        <div>
+
+                            <strong>
+                                ${escapeHtml(
+                                    transaction.description ||
+                                    transaction.type ||
+                                    "Операция"
+                                )}
+                            </strong>
+
+                            <div class="tx-muted">
+
+                                ${escapeHtml(
+                                    date
+                                )}
+
+                                ·
+
+                                ${escapeHtml(
+                                    transaction.status ||
+                                    ""
+                                )}
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="${
+                                amount >= 0
+                                    ? "tx-plus"
+                                    : ""
+                            }">
+
+                            ${sign}${amount} BX
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/*
+==================================================
+LOAD USER DATA
+==================================================
+*/
+
+async function loadUserData() {
+
+    if (!currentUser) {
+
+        walletBalance = 0;
+
+        completedIds =
+            new Set();
+
+
+        document
+            .getElementById(
+                "accountStatus"
+            )
+            .textContent =
+            "Не авторизован";
+
+
+        document
+            .getElementById(
+                "accountGuest"
+            )
+            .style.display =
+            "block";
+
+
+        document
+            .getElementById(
+                "accountData"
+            )
+            .style.display =
+            "none";
+
+
+        document
+            .getElementById(
+                "loginBtn"
+            )
+            .style.display =
+            "inline-flex";
+
+
+        document
+            .getElementById(
+                "signupBtn"
+            )
+            .style.display =
+            "inline-flex";
+
+
+        document
+            .getElementById(
+                "logoutBtn"
+            )
+            .style.display =
+            "none";
+
+
+        document
+            .getElementById(
+                "userChip"
+            )
+            .style.display =
+            "none";
+
+
+        updateDashboard();
+
+        return;
     }
 
 
     document
-        .getElementById("year")
+        .getElementById(
+            "accountStatus"
+        )
         .textContent =
-        new Date().getFullYear();
+        "Активен";
 
 
-    loadData();
+    document
+        .getElementById(
+            "accountGuest"
+        )
+        .style.display =
+        "none";
 
-    updateDashboard();
 
-</script>
+    document
+        .getElementById(
+            "accountData"
+        )
+        .style.display =
+        "block";
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-const SUPABASE_URL = "https://wjxigznqfdaejkbzyiqp.supabase.co";
-const SUPABASE_KEY = "sb_publishable_nejEp7OA4rFzNfQggLGppg_oDhjl5sA";
+    document
+        .getElementById(
+            "accountEmail"
+        )
+        .textContent =
+        currentUser.email ||
+        "—";
 
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+
+    document
+        .getElementById(
+            "userEmail"
+        )
+        .textContent =
+        currentUser.email ||
+        "Аккаунт";
+
+
+    document
+        .getElementById(
+            "userChip"
+        )
+        .style.display =
+        "flex";
+
+
+    document
+        .getElementById(
+            "loginBtn"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "signupBtn"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "logoutBtn"
+        )
+        .style.display =
+        "inline-flex";
+
+
+    try {
+
+        const walletQuery =
+            supabaseClient
+                .from("wallets")
+                .select(
+                    "balance,total_earned"
+                )
+                .eq(
+                    "user_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        const tasksQuery =
+            supabaseClient
+                .from("user_tasks")
+                .select(
+                    "task_id,status"
+                )
+                .eq(
+                    "user_id",
+                    currentUser.id
+                );
+
+
+        const transactionsQuery =
+            supabaseClient
+                .from("transactions")
+                .select(
+                    "amount,type,status,description,created_at"
+                )
+                .eq(
+                    "user_id",
+                    currentUser.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                )
+                .limit(10);
+
+
+        const [
+            walletResult,
+            tasksResult,
+            transactionsResult
+        ] = await Promise.all([
+
+            walletQuery,
+            tasksQuery,
+            transactionsQuery
+
+        ]);
+
+
+        if (walletResult.error) {
+            throw walletResult.error;
+        }
+
+
+        if (tasksResult.error) {
+            throw tasksResult.error;
+        }
+
+
+        if (transactionsResult.error) {
+            throw transactionsResult.error;
+        }
+
+
+        walletBalance =
+            Number(
+                walletResult.data?.balance ||
+                0
+            );
+
+
+        completedIds =
+            new Set(
+
+                (tasksResult.data || [])
+                    .filter(
+                        row =>
+                            row.status ===
+                            "completed"
+                    )
+                    .map(
+                        row =>
+                            row.task_id
+                    )
+
+            );
+
+
+        renderTransactions(
+            transactionsResult.data ||
+            []
+        );
+
+
+        updateDashboard();
+
+
+    } catch (error) {
+
+        console.error(
+            "User data error:",
+            error
+        );
+
+
+        showToast(
+            "Не удалось загрузить данные аккаунта."
+        );
+
+
+        updateDashboard();
+
+    }
+
+}
+
+
+/*
+==================================================
+AUTH STATE
+==================================================
+*/
+
+supabaseClient.auth.onAuthStateChange(
+    async (
+        event,
+        session
+    ) => {
+
+        currentUser =
+            session?.user ||
+            null;
+
+
+        await loadUserData();
+
+    }
 );
+
+
+/*
+==================================================
+MODAL CLOSE
+==================================================
+*/
+
+document
+    .getElementById(
+        "authModal"
+    )
+    .addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target.id ===
+                "authModal"
+            ) {
+
+                closeAuth();
+
+            }
+
+        }
+    );
+
+
+/*
+==================================================
+YEAR
+==================================================
+*/
+
+document
+    .getElementById(
+        "year"
+    )
+    .textContent =
+    new Date().getFullYear();
+
+
+/*
+==================================================
+START APPLICATION
+==================================================
+*/
+
+(async function () {
+
+    await loadTasks();
+
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+    currentUser =
+        session?.user ||
+        null;
+
+
+    await loadUserData();
+
+})();
+
 </script>
-<script>
-async function registerUser() {
-    const email = prompt("Введите email:");
-    const password = prompt("Введите пароль:");
 
-    if (!email || !password) return;
-
-    const { data, error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-    });
-
-    if (error) {
-        alert("Ошибка регистрации: " + error.message);
-        return;
-    }
-
-    alert("Регистрация выполнена. Проверьте почту для подтверждения.");
-}
-
-async function loginUser() {
-    const email = prompt("Введите email:");
-    const password = prompt("Введите пароль:");
-
-    if (!email || !password) return;
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-    });
-
-    if (error) {
-        alert("Ошибка входа: " + error.message);
-        return;
-    }
-
-    alert("Вы успешно вошли в YieldBox.");
-}
-
-async function logoutUser() {
-    const { error } = await supabaseClient.auth.signOut();
-
-    if (error) {
-        alert("Ошибка выхода: " + error.message);
-        return;
-    }
-
-    alert("Вы вышли из аккаунта.");
-}
-</script>
 </body>
 </html>
